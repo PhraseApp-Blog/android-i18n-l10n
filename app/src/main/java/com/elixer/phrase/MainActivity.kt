@@ -23,16 +23,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val locale = LocaleList.getDefault()
+        //This returns a list of Locales
         setContent {
             PhraseTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
                     Column(Modifier.fillMaxSize().padding(top = 100.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("Android")
-                        Text("Locale   ${locale.toString()}", fontSize = 22.sp)
+                        Text("Locale:  $locale", fontSize = 22.sp)
                         Text("Locale Tags:    ${locale.toLanguageTags()}", fontSize = 22.sp)
                     }
-
                 }
             }
         }
