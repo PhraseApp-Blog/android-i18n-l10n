@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.os.LocaleList
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
@@ -16,7 +15,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,7 +32,7 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     val localeManager = getSystemService(Context.LOCALE_SERVICE) as LocaleManager
-    val currentLanguage = localeManager.applicationLocales.toLanguageTags()
+    val currentLocale = localeManager.applicationLocales.toLanguageTags()
 
     setContent {
       PhraseTheme {
@@ -45,7 +43,7 @@ class MainActivity : ComponentActivity() {
           val supportedLocales = listOf("en", "es", "ja")
           var expanded by remember { mutableStateOf(false) }
           var selectedLocale by remember {
-            mutableStateOf(supportedLocales.find { it == currentLanguage } ?: "Not Set")
+            mutableStateOf(currentLocale.ifEmpty { "Not Set" })
           }
 
           Column(
@@ -57,7 +55,7 @@ class MainActivity : ComponentActivity() {
 
             Text(
               text = "Current Locale: ${
-                if (currentLanguage.isNullOrEmpty()) "Not Set" else currentLanguage
+                if (currentLocale.isNullOrEmpty()) "Not Set" else currentLocale
               }",
               color = Color.Blue,
               modifier = Modifier.padding(top = 30.dp)
