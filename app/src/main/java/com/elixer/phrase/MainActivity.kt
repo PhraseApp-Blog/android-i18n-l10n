@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity() {
 
     val localeManager = getSystemService(Context.LOCALE_SERVICE) as LocaleManager
     val currentLocale = localeManager.applicationLocales.toLanguageTags()
+    val number = 1000000
 
     setContent {
       PhraseTheme {
@@ -40,7 +41,7 @@ class MainActivity : ComponentActivity() {
           modifier = Modifier.fillMaxSize(),
           color = MaterialTheme.colors.background
         ) {
-          val supportedLocales = listOf("en", "es", "ja")
+          val supportedLocales = listOf("pt-BR", "en-US", "en-IN")
           var expanded by remember { mutableStateOf(false) }
           var selectedLocale by remember {
             mutableStateOf(currentLocale.ifEmpty { "Not Set" })
@@ -98,17 +99,15 @@ class MainActivity : ComponentActivity() {
               }
             }
             Text(
-              // getString is a function that will return the
-              // translated String using the "greeting" key
-              text = getString(R.string.greeting),
+              text = number.toString(),
               fontSize = 60.sp,
               modifier = Modifier.padding(top = 30.dp)
             )
-            Button(onClick = {
-              localeManager.applicationLocales = LocaleList.getEmptyLocaleList()
-            }, modifier = Modifier.padding(top = 200.dp)) {
-              Text(text = "Reset")
-            }
+//            Button(onClick = {
+//              localeManager.applicationLocales = LocaleList.getEmptyLocaleList()
+//            }, modifier = Modifier.padding(top = 200.dp)) {
+//              Text(text = "Reset")
+//            }
           }
         }
       }
