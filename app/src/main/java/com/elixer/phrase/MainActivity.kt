@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.elixer.phrase.ui.theme.PhraseTheme
+import java.text.NumberFormat
 import java.util.*
 
 
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
     val localeManager = getSystemService(Context.LOCALE_SERVICE) as LocaleManager
     val currentLocale = localeManager.applicationLocales.toLanguageTags()
     val number = 1000000
+    val formattedNumber = NumberFormat.getInstance().format(number)
 
     setContent {
       PhraseTheme {
@@ -99,7 +101,7 @@ class MainActivity : ComponentActivity() {
               }
             }
             Text(
-              text = number.toString(),
+              text = formattedNumber,
               fontSize = 60.sp,
               modifier = Modifier.padding(top = 30.dp)
             )
