@@ -5,16 +5,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.elixer.phrase.ui.theme.PhraseTheme
@@ -30,11 +31,7 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    val UtcTimeStamp = "2022-01-31T16:27:23Z"
-    val timestampInstant = Instant.parse(UtcTimeStamp)
-    val zonedDateTime = ZonedDateTime.ofInstant(timestampInstant, ZoneId.systemDefault())
-    val dateFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-    val localizedDate = zonedDateTime.format(dateFormatter)
+
 
     setContent {
       PhraseTheme {
@@ -43,24 +40,24 @@ class MainActivity : ComponentActivity() {
           color = MaterialTheme.colors.background
         ) {
 
-          Column(
-            Modifier
-              .fillMaxSize()
-              .padding(top = 100.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+          var count by remember { mutableStateOf("") }
+          Row(
+            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(
+              top =
+              20.dp
+            )
           ) {
-
-            Text(
-              text = "UTC TimeStamp: $UtcTimeStamp",
-              color = Color.Blue,
-              modifier = Modifier.padding(top = 30.dp),
-              fontSize = 20.sp
+            Spacer(modifier = Modifier.weight(1f))
+            TextField(
+              modifier = Modifier.width(80.dp),
+              value = count, onValueChange = { count = it },
+              keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             )
             Text(
-              text = localizedDate.toString(),
-              fontSize = 20.sp,
-              modifier = Modifier.padding(top = 30.dp)
+              text = getString(R.string.label_minutes), fontSize = 20.sp, modifier = Modifier
+                .padding(start = 10.dp)
             )
+            Spacer(modifier = Modifier.weight(1f))
           }
         }
       }

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Phrase</string>
     <string name="greeting">Hello</string>
+    <string name="label_minutes" translatable="false">minute</string>
 
 </resources>
