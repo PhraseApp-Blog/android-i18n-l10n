@@ -1,30 +1,28 @@
 package com.elixer.phrase
 
-import android.app.LocaleManager
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.os.LocaleList
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.elixer.phrase.ui.theme.PhraseTheme
-import java.text.NumberFormat
-import java.util.*
-
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 @OptIn(ExperimentalMaterialApi::class)
 class MainActivity : ComponentActivity() {
@@ -32,10 +30,11 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    val localeManager = getSystemService(Context.LOCALE_SERVICE) as LocaleManager
-    val currentLocale = localeManager.applicationLocales.toLanguageTags()
-    val number = 1000000
-    val formattedNumber = NumberFormat.getInstance().format(number)
+    val UtcTimeStamp = "2022-01-31T16:27:23Z"
+    val timestampInstant = Instant.parse(UtcTimeStamp)
+    val zonedDateTime = ZonedDateTime.ofInstant(timestampInstant, ZoneId.systemDefault())
+    val dateFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+    val localizedDate = zonedDateTime.format(dateFormatter)
 
     setContent {
       PhraseTheme {
@@ -43,11 +42,6 @@ class MainActivity : ComponentActivity() {
           modifier = Modifier.fillMaxSize(),
           color = MaterialTheme.colors.background
         ) {
-          val supportedLocales = listOf("pt-BR", "en-US", "en-IN")
-          var expanded by remember { mutableStateOf(false) }
-          var selectedLocale by remember {
-            mutableStateOf(currentLocale.ifEmpty { "Not Set" })
-          }
 
           Column(
             Modifier
@@ -57,59 +51,16 @@ class MainActivity : ComponentActivity() {
           ) {
 
             Text(
-              text = "Current Locale: ${
-                if (currentLocale.isNullOrEmpty()) "Not Set" else currentLocale
-              }",
+              text = "UTC TimeStamp: $UtcTimeStamp",
               color = Color.Blue,
-              modifier = Modifier.padding(top = 30.dp)
+              modifier = Modifier.padding(top = 30.dp),
+              fontSize = 20.sp
             )
-
-            ExposedDropdownMenuBox(
-              expanded = expanded,
-              onExpandedChange = {
-                expanded = !expanded
-              }
-            ) {
-              TextField(
-                readOnly = true,
-                value = selectedLocale,
-                onValueChange = { },
-                trailingIcon = {
-                  ExposedDropdownMenuDefaults.TrailingIcon(
-                    expanded = expanded
-                  )
-                },
-                colors = ExposedDropdownMenuDefaults.textFieldColors()
-              )
-              ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = {
-                  expanded = false
-                }
-              ) {
-                supportedLocales.forEach { selectionOption ->
-                  DropdownMenuItem(onClick = {
-                    selectedLocale = selectionOption
-                    localeManager.applicationLocales =
-                      LocaleList(Locale.forLanguageTag(selectedLocale))
-                    expanded = false
-                  }
-                  ) {
-                    Text(text = selectionOption)
-                  }
-                }
-              }
-            }
             Text(
-              text = formattedNumber,
-              fontSize = 60.sp,
+              text = localizedDate.toString(),
+              fontSize = 20.sp,
               modifier = Modifier.padding(top = 30.dp)
             )
-//            Button(onClick = {
-//              localeManager.applicationLocales = LocaleList.getEmptyLocaleList()
-//            }, modifier = Modifier.padding(top = 200.dp)) {
-//              Text(text = "Reset")
-//            }
           }
         }
       }
