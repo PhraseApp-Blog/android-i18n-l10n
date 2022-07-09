@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name" translatable="false">Phrase</string>
     <string name="greeting">Hello</string>
-    <string name="label_minutes" translatable="false">minute</string>
+<!--    <string name="label_minutes" translatable="false">minute</string>-->
+    <plurals name="label_minutes" translatable="false">
+        <!--
+                  As a developer, you should always supply "one" and "other"
+                  strings. Your translators will know which strings are actually
+                  needed for their language. More information on attributes on
+                  https://developer.android.com/guide/topics/resources/string-resource
+               -->
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
 
 </resources>
