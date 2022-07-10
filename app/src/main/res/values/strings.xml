@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" translatable="false">Phrase</string>
     <string name="greeting">Hello</string>
 <!--    <string name="label_minutes" translatable="false">minute</string>-->
@@ -13,6 +13,6 @@
         <item quantity="other">minutes</item>
     </plurals>
 
-    <string name="landing_url">Visit our website https://xyz.com to know more.</string>
+    <string name="landing_url"> Visit us at <xliff:g id="application_homepage">https://xyz.com/</xliff:g> to know more.</string>
 
 </resources>
