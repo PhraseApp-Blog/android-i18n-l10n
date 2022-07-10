@@ -14,5 +14,6 @@
     </plurals>
 
     <string name="landing_url"> Visit us at <xliff:g id="application_homepage">https://xyz.com/</xliff:g> to know more.</string>
+    <string name="next">Next</string>
 
 </resources>

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.elixer.phrase"
-        minSdk 33
+        minSdk 28
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -25,6 +25,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            pseudoLocalesEnabled true
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
