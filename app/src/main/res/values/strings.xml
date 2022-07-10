@@ -13,4 +13,6 @@
         <item quantity="other">minutes</item>
     </plurals>
 
+    <string name="landing_url">Visit our website https://xyz.com to know more.</string>
+
 </resources>

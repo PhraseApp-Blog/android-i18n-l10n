@@ -32,17 +32,12 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-
-
     setContent {
       PhraseTheme {
         Surface(
           modifier = Modifier.fillMaxSize(),
           color = MaterialTheme.colors.background
         ) {
-
-          var count by remember { mutableStateOf("0") }
-          val resources = LocalContext.current.resources
 
           Row(
             verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(
@@ -51,13 +46,8 @@ class MainActivity : ComponentActivity() {
             )
           ) {
             Spacer(modifier = Modifier.weight(1f))
-            TextField(
-              modifier = Modifier.width(80.dp),
-              value = count, onValueChange = { count = it.ifEmpty { "0" } },
-              keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-            )
             Text(
-              text =  resources.getQuantityString(R.plurals.label_minutes, count.toInt()),
+              text =  getString(R.string.landing_url),
               fontSize = 20.sp,
               modifier = Modifier.padding(start = 10.dp)
             )
